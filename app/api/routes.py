@@ -2,8 +2,6 @@ from app.api.models import Data
 from apistar import http
 from googletrans import Translator
 
-extraction = Extraction()
-
 
 def welcome(name=None):
     if name is None:

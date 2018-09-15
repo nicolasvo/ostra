@@ -1,9 +1,9 @@
 from apistar import Route, App
-from app.api.routes import welcome, extract
+from app.api.routes import welcome, translate
 
 routes = [
     Route('/', 'GET', welcome),
-    Route('/translate', 'POST', extract)
+    Route('/translate', 'POST', translate)
 ]
 
 
