@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ef06e6d7827454a028b3017066ed2639d99a27d7898bdfa6001cf9cda8cfd633"
+            "sha256": "64eb70b257debc1fa6842c75ac484257777a1cfae13519cc0eb23a783ad3be24"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -64,6 +64,9 @@
                 "sha256:f84be1bb0040caca4cea721fcbbbbd61f9be9464ca236387158b0feea01914a4"
             ],
             "version": "==2.10"
+        },
+        "magiclogger": {
+            "git": "https://github.com/rcourivaud/MagicLogger"
         },
         "markupsafe": {
             "hashes": [

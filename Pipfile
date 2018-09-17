@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 googletrans = "*"
 apistar = "*"
+MagicLogger = {git = "https://github.com/rcourivaud/MagicLogger"}
 
 [dev-packages]
 
