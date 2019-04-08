@@ -44,14 +44,14 @@ class Translator():
     def delete_row_(self, row):
         self.sheet.delete_row(row)
 
-    def clean(self):
-        list_all = self.show()
-        rows = []
-        for index, list_ in enumerate(list_all):
-            if not any(word.strip() for word in list(list_.values())):
-                rows.append(index + 1)
-        for row in sorted(rows, reverse=True):
-            self.delete_row_(row)
+    # def clean(self):
+    #     list_all = self.show()
+    #     rows = []
+    #     for index, list_ in enumerate(list_all):
+    #         if not any(word.strip() for word in list(list_.values())):
+    #             rows.append(index + 1)
+    #     for row in sorted(rows, reverse=True):
+    #         self.delete_row_(row)
 
 translator = Translator(sheet)
 
