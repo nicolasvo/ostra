@@ -9,6 +9,7 @@ jupyterlab = "*"
 [packages]
 gspread = "*"
 oauth2client = "*"
+flask = "*"
 
 [requires]
 python_version = "3.7"
