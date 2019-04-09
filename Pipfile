@@ -10,6 +10,7 @@ jupyterlab = "*"
 gspread = "*"
 oauth2client = "*"
 flask = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
