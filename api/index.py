@@ -1,12 +1,13 @@
 from flask import Flask, jsonify, request
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import os
 
-
+PORT = os.getenv("PORT", "5000")
 app = Flask(__name__)
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-creds = ServiceAccountCredentials.from_json_keyfile_name('api/res/ostra-dd1177d64769.json', scope)
+creds = ServiceAccountCredentials.from_json_keyfile_name('api/res/contract.json', scope)
 client = gspread.authorize(creds)
 
 sheet = client.open("dictionary").sheet1
@@ -86,4 +87,4 @@ def delete():
         return "", 204
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=PORT, debug=True)
