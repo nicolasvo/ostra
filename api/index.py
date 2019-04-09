@@ -79,7 +79,7 @@ def delete():
     body = request.get_json()
     map_parameter = ["row"]
     parameters = {parameter: body[parameter] for parameter in map_parameter}
-    if int(parameters["row"]) == 0:
+    if int(parameters["row"]) <= 0:
         return "Row must be greater than 0.", 400
     else:
         translator.delete_row_(int(parameters["row"]))

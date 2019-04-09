@@ -4,7 +4,7 @@ WORKDIR /home
 
 COPY . .
 
-RUN pip install pipenv gunicorn
+RUN pip install pipenv
 RUN pipenv install --system
 
 ENTRYPOINT ["/bin/bash"]
