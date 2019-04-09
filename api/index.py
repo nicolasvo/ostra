@@ -45,7 +45,7 @@ class Translator():
             self.translate(row, col, word, from_language, to_language)
 
     def insert_(self, col, word):
-        row = self.get_next_row() + 2
+        row = self.get_next_row() + 1
         self.translate_row(row, col, word)
 
     def delete(self, row, col):
@@ -63,9 +63,7 @@ def hello_world():
 
 @app.route('/words', methods=['POST'])
 def insert():
-    body = request.get_json()
-    map_parameter = ["col", "word"]
-    parameters = {parameter: body[parameter] for parameter in map_parameter}
+    parameters = request.get_json()
     parameters = translator.parse_parameter(parameters)
     translator.insert_(**parameters)
     return "", 201
