@@ -63,18 +63,13 @@ def hello_world():
 
 @app.route('/words', methods=['POST'])
 def insert():
-    parameters = request.get_json()
-    parameters = translator.parse_parameter(parameters)
+    parameters = translator.parse_parameter(request.get_json())
     translator.insert_(**parameters)
     return "", 201
 
 @app.route("/words", methods=["PUT"])
 def update():
-    body = request.get_json()
-    map_parameter = ["row", "col", "word"]
-    parameters = {parameter: body[parameter] for parameter in map_parameter}
-    parameters = translator.parse_parameter(parameters)
-
+    parameters = translator.parse_parameter(request.get_json())
     if parameters["row"] <= 0:
         return "Row must be greater than 0.", 400
     else:
@@ -83,9 +78,7 @@ def update():
 
 @app.route("/words", methods=["DELETE"])
 def delete():
-    body = request.get_json()
-    map_parameter = ["row"]
-    parameters = {parameter: body[parameter] for parameter in map_parameter}
+    parameters = translator.parse_parameter(request.get_json())
     if int(parameters["row"]) <= 0:
         return "Row must be greater than 0.", 400
     else:
