@@ -5,6 +5,7 @@ WORKDIR /home
 COPY . .
 
 ENV PORT 5000
+EXPOSE 5000
 
 RUN pip install pipenv
 RUN pipenv install --system
