@@ -1,9 +1,5 @@
 from flask import Flask, jsonify, request
 
-# from cashman.model.expense import Expense, ExpenseSchema
-# from cashman.model.income import Income, IncomeSchema
-# from cashman.model.transaction_type import TransactionType
-
 app = Flask(__name__)
 
 import gspread
@@ -27,6 +23,10 @@ class Translator():
         list_all = self.sheet.get_all_records()
         return list_all
 
+    def get_next_row(self):
+        list_all = self.sheet.get_all_records()
+        return len(list_all)
+
     def translate(self, row, col, word, from_language, to_language):
         content = f'=GOOGLETRANSLATE("{word}", "{from_language}", "{to_language["language"]}")'
         self.sheet.update_cell(row, col, word)
@@ -38,20 +38,15 @@ class Translator():
         for to_language in to_languages:
             self.translate(row, col, word, from_language, to_language)
 
+    def insert_(self, col, word):
+        row = self.get_next_row() + 2
+        self.translate_row(row, col, word)
+
     def delete(self, row, col):
         self.sheet.update_cell(row, col, "")
 
     def delete_row_(self, row):
         self.sheet.delete_row(row)
-
-    # def clean(self):
-    #     list_all = self.show()
-    #     rows = []
-    #     for index, list_ in enumerate(list_all):
-    #         if not any(word.strip() for word in list(list_.values())):
-    #             rows.append(index + 1)
-    #     for row in sorted(rows, reverse=True):
-    #         self.delete_row_(row)
 
 translator = Translator(sheet)
 
@@ -63,7 +58,10 @@ def hello_world():
 @app.route('/words', methods=['POST'])
 def insert():
     body = request.get_json()
-    return jsonify(body)
+    map_parameter = ["word", "col"]
+    parameters = {parameter: body[parameter] for parameter in map_parameter}
+    translator.insert_(int(parameters["col"]), parameters["word"])
+    return "", 201
 
 # transactions = [
 #     Income('Salary', 5000),
