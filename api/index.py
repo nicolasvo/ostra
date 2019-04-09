@@ -74,6 +74,13 @@ def update():
     translator.update_(int(parameters["row"]), int(parameters["col"]), parameters["word"])
     return "", 201
 
+@app.route("/words", methods=["DELETE"])
+def delete():
+    body = request.get_json()
+    map_parameter = ["row"]
+    parameters = {parameter: body[parameter] for parameter in map_parameter}
+    translator.delete_row_(int(parameters["row"]))
+    return "", 204
 
 # transactions = [
 #     Income('Salary', 5000),
