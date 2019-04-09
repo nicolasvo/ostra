@@ -79,10 +79,10 @@ def update():
 @app.route("/words", methods=["DELETE"])
 def delete():
     parameters = translator.parse_parameter(request.get_json())
-    if int(parameters["row"]) <= 0:
+    if parameters["row"] <= 0:
         return "Row must be greater than 0.", 400
     else:
-        translator.delete_row_(int(parameters["row"]))
+        translator.delete_row_(**parameters)
         return "", 204
 
 if __name__ == "__main__":
