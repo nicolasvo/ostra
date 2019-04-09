@@ -27,6 +27,9 @@ class Translator():
         list_all = self.sheet.get_all_records()
         return len(list_all)
 
+    def update_(self, row, col, word):
+        self.sheet.update_cell(row, col, word)
+
     def translate(self, row, col, word, from_language, to_language):
         content = f'=GOOGLETRANSLATE("{word}", "{from_language}", "{to_language["language"]}")'
         self.sheet.update_cell(row, col, word)
@@ -62,6 +65,15 @@ def insert():
     parameters = {parameter: body[parameter] for parameter in map_parameter}
     translator.insert_(int(parameters["col"]), parameters["word"])
     return "", 201
+
+@app.route("/words", methods=["PUT"])
+def update():
+    body = request.get_json()
+    map_parameter = ["word", "row", "col"]
+    parameters = {parameter: body[parameter] for parameter in map_parameter}
+    translator.update_(int(parameters["row"]), int(parameters["col"]), parameters["word"])
+    return "", 201
+
 
 # transactions = [
 #     Income('Salary', 5000),
