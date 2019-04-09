@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, request
-
-app = Flask(__name__)
-
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+
+
+app = Flask(__name__)
 
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 creds = ServiceAccountCredentials.from_json_keyfile_name('api/res/ostra-dd1177d64769.json', scope)
@@ -32,8 +32,8 @@ class Translator():
 
     def translate(self, row, col, word, from_language, to_language):
         content = f'=GOOGLETRANSLATE("{word}", "{from_language}", "{to_language["language"]}")'
-        self.sheet.update_cell(row, col, word)
-        self.sheet.update_cell(row, to_language["index"], content)
+        self.update_(row, col, word)
+        self.update_(row, to_language["index"], content)
 
     def translate_row(self, row, col, word):
         from_language = self.map_language[col]
@@ -46,10 +46,10 @@ class Translator():
         self.translate_row(row, col, word)
 
     def delete(self, row, col):
-        self.sheet.update_cell(row, col, "")
+        self.update_(row, col, "")
 
     def delete_row_(self, row):
-        self.sheet.delete_row(row)
+        self.sheet.delete_row(row + 1)
 
 translator = Translator(sheet)
 
@@ -79,48 +79,11 @@ def delete():
     body = request.get_json()
     map_parameter = ["row"]
     parameters = {parameter: body[parameter] for parameter in map_parameter}
-    translator.delete_row_(int(parameters["row"]))
-    return "", 204
-
-# transactions = [
-#     Income('Salary', 5000),
-#     Income('Dividends', 200),
-#     Expense('pizza', 50),
-#     Expense('Rock Concert', 100)
-# ]
-#
-#
-# @app.route('/incomes')
-# def get_incomes():
-#     schema = IncomeSchema(many=True)
-#     incomes = schema.dump(
-#         filter(lambda t: t.type == TransactionType.INCOME, transactions)
-#     )
-#     return jsonify(incomes.data)
-#
-#
-# @app.route('/incomes', methods=['POST'])
-# def add_income():
-#     income = IncomeSchema().load(request.get_json())
-#     transactions.append(income.data)
-#     return "", 204
-#
-#
-# @app.route('/expenses')
-# def get_expenses():
-#     schema = ExpenseSchema(many=True)
-#     expenses = schema.dump(
-#         filter(lambda t: t.type == TransactionType.EXPENSE, transactions)
-#     )
-#     return jsonify(expenses.data)
-#
-#
-# @app.route('/expenses', methods=['POST'])
-# def add_expense():
-#     expense = ExpenseSchema().load(request.get_json())
-#     transactions.append(expense.data)
-#     return "", 204
-
+    if int(parameters["row"]) == 0:
+        return "Row must be greater than 0.", 400
+    else:
+        translator.delete_row_(int(parameters["row"]))
+        return "", 204
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
