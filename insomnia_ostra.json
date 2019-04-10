@@ -1,0 +1,166 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2019-04-10T22:43:52.190Z",
+	"__export_source": "insomnia.desktop.app:v6.3.2",
+	"resources": [
+		{
+			"_id": "wrk_72aa14da12444086800ca49d7a53e804",
+			"created": 1554746771583,
+			"description": "",
+			"modified": 1554746771583,
+			"name": "Insomnia",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_8819fa20ab3c4c7585bdd22418df6099",
+			"color": null,
+			"created": 1554746771630,
+			"data": {},
+			"isPrivate": false,
+			"metaSortKey": 1554746771630,
+			"modified": 1554746771630,
+			"name": "New Environment",
+			"parentId": "wrk_72aa14da12444086800ca49d7a53e804",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_a97523ea349d48a6a71465dd8b2029db",
+			"cookies": [],
+			"created": 1554746771633,
+			"modified": 1554746771633,
+			"name": "Default Jar",
+			"parentId": "wrk_72aa14da12444086800ca49d7a53e804",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "req_3ed5c85985174c098963d79ed055b8dd",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"created": 1554763237440,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_c376211c6f55420e9631e756acfd4014",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1554832095992,
+			"method": "GET",
+			"modified": 1554916410166,
+			"name": "mundocrit",
+			"parameters": [],
+			"parentId": "wrk_72aa14da12444086800ca49d7a53e804",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:5000/",
+			"_type": "request"
+		},
+		{
+			"_id": "req_cfb82ee592644daab9af68fb97511557",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"word\": \"culprit\",\n\t\"col\": \"1\"\n}"
+			},
+			"created": 1554832095942,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_37870cae1a3e4a628d98d7e6d536adb8",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1554832095942,
+			"method": "POST",
+			"modified": 1554929434747,
+			"name": "insert",
+			"parameters": [],
+			"parentId": "wrk_72aa14da12444086800ca49d7a53e804",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:5000/words",
+			"_type": "request"
+		},
+		{
+			"_id": "req_133444680b3e4a34bd90f5bfd28a1933",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"word\": \"brother\",\n\t\"col\": \"1\",\n\t\"row\": \"1\"\n}"
+			},
+			"created": 1554832783160,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_37870cae1a3e4a628d98d7e6d536adb8",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1554832095892,
+			"method": "PUT",
+			"modified": 1554832803836,
+			"name": "update cell",
+			"parameters": [],
+			"parentId": "wrk_72aa14da12444086800ca49d7a53e804",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:5000/words",
+			"_type": "request"
+		},
+		{
+			"_id": "req_7f6c034e37dc448782b6ee5482c0f4fb",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"row\": \"1\"\n}"
+			},
+			"created": 1554832812568,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_37870cae1a3e4a628d98d7e6d536adb8",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1554832095842,
+			"method": "DELETE",
+			"modified": 1554832826041,
+			"name": "delete row",
+			"parameters": [],
+			"parentId": "wrk_72aa14da12444086800ca49d7a53e804",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:5000/words",
+			"_type": "request"
+		}
+	]
+}
