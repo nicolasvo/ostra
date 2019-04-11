@@ -9,12 +9,6 @@ app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 
-# scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-# creds = ServiceAccountCredentials.from_json_keyfile_name('api/res/contract.json', scope)
-# client = gspread.authorize(creds)
-# sheet = client.open("dictionary").sheet1
-
-
 class Sheet():
 
     def __init__(self, name):
@@ -29,7 +23,6 @@ class Sheet():
             self.client.login()
         return self.client.open(self.name).sheet1
 
-    # @property
     def map_language(self):
         self.map_language = {index + 1: language for index, language in enumerate(self.sheet.row_values(1))}
         self.to_languages = [{"language": language, "index": index} for index, language in self.map_language.items()]
