@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, abort
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import os
@@ -78,6 +78,7 @@ sheet.map_language()
 
 
 @app.route("/words")
+@cross_origin()
 def hello_world():
     print(sheet.get_words())
     return jsonify(sheet.get_words())
