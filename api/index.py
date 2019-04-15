@@ -87,7 +87,7 @@ def hello_world():
 def get_word(word_id):
     if word_id.isdigit():
         word = sheet.get_word(int(word_id))
-        return jsonify(word)
+        return jsonify({language: word_ for language, word_ in zip(list(sheet.map_language.values()), word)})
     abort(400, f"Parameter is not a valid ID: {word_id}")
 
 
