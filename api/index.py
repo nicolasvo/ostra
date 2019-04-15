@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from flask_cors import CORS
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
@@ -42,7 +42,7 @@ class Sheet():
         if 0 < row < upper_limit:
             # TODO: investigate gspread row range
             return self.sheet.row_values(row + 1)
-        return f"Row must be within [{1} and {upper_limit - 1}]", 400
+        abort(400, f"Row must be within [1, {upper_limit - 1}].")
 
     def get_next_row(self):
         list_all = self.sheet.get_all_records()
@@ -83,13 +83,13 @@ def hello_world():
     return jsonify(sheet.get_words())
 
 
-@app.route('/words/<word_id>')
+@app.route('/words/<word_id>', methods=['GET'])
 def get_word(word_id):
     if word_id.isdigit():
         word = sheet.get_word(int(word_id))
-    if isinstance(tuple, type(word)):
-        return word[0], 400
-    return jsonify(word)
+        return jsonify(word)
+    abort(400, f"Parameter is not a valid ID: {word_id}")
+
 
 @app.route('/words', methods=['POST'])
 def insert():
