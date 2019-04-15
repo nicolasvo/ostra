@@ -33,13 +33,20 @@ class Sheet():
     def parse_parameter(self, parameters):
         return {k: int(v) if k in ["row", "col"] else v for k, v in parameters.items()}
 
-    def show(self):
+    def get_words(self):
         list_all = self.sheet.get_all_records()
         return list_all
 
+    def get_word(self, row):
+        upper_limit = self.get_next_row()
+        if 0 < row < upper_limit:
+            # TODO: investigate gspread row range
+            return self.sheet.row_values(row + 1)
+        return f"Row must be within [{1} and {upper_limit - 1}]", 400
+
     def get_next_row(self):
         list_all = self.sheet.get_all_records()
-        return len(list_all)
+        return len(list_all) + 1
 
     def update_(self, row, col, word):
         self.sheet.update_cell(row + 1, col, word)
@@ -56,7 +63,7 @@ class Sheet():
             self.translate(row, col, word, from_language, to_language)
 
     def insert_(self, col, word):
-        row = self.get_next_row() + 1
+        row = self.get_next_row()
         self.translate_row(row, col, word)
 
     def delete(self, row, col):
@@ -72,9 +79,17 @@ sheet.map_language()
 
 @app.route("/")
 def hello_world():
-    print(sheet.show())
-    return jsonify(sheet.show())
+    print(sheet.get_words())
+    return jsonify(sheet.get_words())
 
+
+@app.route('/words/<word_id>')
+def get_word(word_id):
+    if word_id.isdigit():
+        word = sheet.get_word(int(word_id))
+    if isinstance(tuple, type(word)):
+        return word[0], 400
+    return jsonify(word)
 
 @app.route('/words', methods=['POST'])
 def insert():
