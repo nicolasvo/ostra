@@ -2,9 +2,9 @@ from flask import Flask, jsonify, request, abort
 from flask_cors import CORS, cross_origin
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import os
-
-PORT = os.getenv("PORT", "5000")
+# import os
+#
+# PORT = os.getenv("PORT", "5000")
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
@@ -119,5 +119,5 @@ def delete():
         return "", 204
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=PORT, debug=True)
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=PORT, debug=True)
