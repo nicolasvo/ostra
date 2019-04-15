@@ -77,7 +77,7 @@ sheet = Sheet("dictionary")
 sheet.map_language()
 
 
-@app.route("/")
+@app.route("/words")
 def hello_world():
     print(sheet.get_words())
     return jsonify(sheet.get_words())
