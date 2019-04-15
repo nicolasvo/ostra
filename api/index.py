@@ -2,11 +2,25 @@ from flask import Flask, jsonify, request, abort
 from flask_cors import CORS, cross_origin
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+
 # import os
 #
 # PORT = os.getenv("PORT", "5000")
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "*"}})
+cors = CORS(app, resources={r"/*": {"origins": "*"}},
+            allow_headers=['Content-Type', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Headers',
+                           'Access-Control-Allow-Methods'])
+
+
+@app.after_request
+def apply_caching(response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    response.headers["Access-Control-Allow-Methods"] = "GET,HEAD,OPTIONS,POST,PUT"
+    response.headers["Access-Control-Allow-Headers"] = \
+        "Access-Control-Allow-Headers,  Access-Control-Allow-Origin, Origin,Accept, " + \
+        "X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
+    return response
 
 
 class Sheet():
@@ -117,7 +131,6 @@ def delete():
     else:
         sheet.delete_row_(**parameters)
         return "", 204
-
 
 # if __name__ == "__main__":
 #     app.run(host="0.0.0.0", port=PORT, debug=True)
