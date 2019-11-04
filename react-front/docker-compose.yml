@@ -1,0 +1,21 @@
+version: '3'
+services:
+  ostra:
+    build:
+      context: ./ostra/
+      dockerfile: Dockerfile
+    container_name: ostra
+    ports:
+      - "5000:5000"
+
+  js:
+    build:
+      context: ./js/
+      dockerfile: Dockerfile
+    container_name: js
+    ports:
+      - "80:80"
+    volumes:
+      - ./js:/home
+    depends_on:
+      - ostra
